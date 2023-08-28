@@ -1,0 +1,7 @@
+*First, tell us a little bit about yourself (where you're from, your past education, what you do, any interests outside of school). Second, tell us about your public health interests. Finally, when most people run away from statistics, you actually signed up for this - why are you taking Applied Biostatistics?*
+
+Hi!
+
+My name is Lillian Jensen and this is my second-to-last semester in the MPH program. I studied microbiology and mathematics in undergrad, and I have professional certificates in data science and advanced data analytics. My background is in enteric disease; I have experience studying the protective effect of the healthy human gut microbiome against *Clostridioides difficile* and other enteric pathogens. I also have experience building informatics and bioinformatics pipelines to automate redundant tasks in research and in public health practice. My goal is to be the data specialist that people run to when they're running away from statistics in public health.
+
+In my free time I'm currently learning how to play the piano, which is my very first musical instrument. I also like gaming; video games, VR, tabletop, you name it. The majority of my free time in the last year has gone into training my puppy, however. I'm hoping to be able to play a game of chess soon without Pablo Escobark stealing my queen
