@@ -1,0 +1,97 @@
+---
+editor_options:
+  markdown:
+    wrap: 72
+output: pdf_document
+---
+
+HM 878 Applied Biostatistics Problem Set #1a Descriptive Statistics,
+Confidence Intervals, 5-point Summary, Frequencies, Graphs
+
+Goals: This Problem Set will provide students with the opportunity to
+learn how to use R to conduct basic statistical tests, replicating many
+tests that were already done in HM 802. The main goal is to make sure
+you are familiar with R as a system for statistical analysis. You did
+these same analyses in HM 802, using the same datasets and SPSS. I've
+included SPSS output here so that you can check your work. You don't
+have to conduct hypothesis tests. Include your output from R. If you are
+not getting the same information in R (it may be formatted differently
+or called a different thing and that is ok), you should keep trying. For
+now, I'm only interested in making sure you can use R to do these
+analyses.
+
+Analyses include:
+
+-   Descriptive statistics
+
+-   Frequency distributions
+
+-   Graphical displays of data
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+df = read.csv("C:\\Users\\ljens\\Downloads\\Anticonvulsants.csv")
+head(df)
+```
+
+1.  Data: Anticonvulsants.csv. Variable: convulsions. Use R to calculate
+    descriptive statistics: mean, median, mode, and standard deviation.
+    Calculate quartiles. Calculate a 5-point summary and the upper and
+    lower fences to determine outliers.
+
+```{r}
+summary(df$convulsions)
+```
+
+```{r}
+mode_tbl = table(df$convulsions)
+print(paste("Mode: ", substr(toString(names(mode_tbl[mode_tbl==max(mode_tbl)])), 1, 5)))
+```
+
+```{r}
+print(paste("Standard Deviation: ", substr(toString(sd(df$convulsions)), 1, 5)))
+```
+
+```{r}
+print(paste("IQR: ", substr(toString(IQR(df$convulsions)), 1, 5)))
+```
+
+```{r}
+print(paste("Upper Fence: ", substr(toString(quantile(df$convulsions, 0.75) + 1.5*IQR(df$convulsions)), 1, 5)))
+```
+
+```{r}
+print(paste("Lower Fence: ", substr(toString(quantile(df$convulsions, 0.25) - 1.5*IQR(df$convulsions)), 1, 5)))
+```
+
+2.  Data: Anticonvulsants.csv. Variable: center size. Use R to create a
+    frequency table.
+
+```{r}
+df <- df |> mutate(df$center_size_code <- recode(df$center_size, 
+                                              `1`="Small", 
+                                              `2`="Medium", 
+                                              `3`="Large" , 
+                                              .default = NA_character_
+                                              ))
+print(table(df$center_size_code))
+```
+
+```         
+ Large Medium  Small    
+ 1476   1320    594 
+```
+
+1.  Data: Cumulative Confirmed Cases and Deaths Among Confirmed
+    Cases.csv. Use R to create a dual line graph showing confirmed
+    COVID-19 Deaths and Cases on the same graph.
+2.  Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable:
+    Generations. Using R, Create a Pie Chart and Histogram.
+3.  Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable:
+    AGE. Using R, create a Box and Whisker plot.
+4.  Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variables:
+    libcons and KnowledgeScore. Using R, Create a graph to show the
+    relationship between these two variables.
