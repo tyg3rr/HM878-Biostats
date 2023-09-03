@@ -98,12 +98,106 @@ Data: Cumulative Confirmed Cases and Deaths Among Confirmed Cases.csv.
 Use R to create a dual line graph showing confirmed COVID-19 Deaths and
 Cases on the same graph.
 
+```{r}
+df = read.csv("C:\\Users\\ljens\\Downloads\\Cumulative Confirmed Cases and Deaths Among Confirmed Cases.csv")
+```
+
+```{r}
+head(df)
+```
+
+```{r}
+colnames(df)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df = df |> mutate(Date = mdy(Date))
+```
+
+```{r}
+head(df)
+```
+
+```{r}
+ggplot(df, aes(Date)) + 
+  geom_line(aes(y=Cumulative_Cases, color = "Cases"), group=1)+
+  geom_line(aes(y=Cumulative_Deaths, color="Deaths"), group=1) + 
+  labs(title="COVID Cases & Deaths", y="Cummulative Count", ) +
+  ggplot2::theme_classic()
+```
+
 ------------------------------------------------------------------------
 
 ## Question 4
 
 Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable:
 Generations. Using R, Create a Pie Chart and Histogram.
+
+```{r}
+df = read.csv("C:\\Users\\ljens\\Downloads\\COVID-19 Knowledge, Attitudes, and Behaviors.csv")
+```
+
+```{r}
+head(df$Generations)
+
+```
+
+```{r}
+tbl = table(df$Generations)
+
+```
+
+```{r}
+names(tbl)
+
+```
+
+```{r}
+tbl['Baby Boomers']
+```
+
+```{r}
+dd = df[c("Generations_1", 'Generations_2', 'Generations_3', 'Generations_4')]
+```
+
+```{r}
+head(dd)
+```
+
+```{r}
+df |> group_by(Generations) |> summarize(counts = length(Age))
+```
+
+```{r}
+tbl = df |> group_by(Generations) |> summarize(counts = length(Age))
+```
+
+\
+\
+
+```{r}
+ggplot(tbl, aes(x='', y=counts, fill=Generations)) +
+  geom_bar(stat='identity', width=1) +
+  coord_polar('y', start=0) +
+  theme_void() 
+```
+
+```{r}
+tbl$Generations = factor(tbl$Generations, order = TRUE, levels = c('Baby Boomers','Gen X','Millenials','Gen Z'))
+```
+
+```{r}
+plot(factor(df$Generations, order = TRUE, levels = c('Baby Boomers','Gen X','Millenials','Gen Z')))
+```
+
+\
+\
+\
+\
 
 ------------------------------------------------------------------------
 
