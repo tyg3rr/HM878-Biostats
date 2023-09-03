@@ -3,13 +3,14 @@ editor_options:
   markdown:
     wrap: 72
   
-output: pdf_document
+output: html_document
 ---
 
-HM 878 Applied Biostatistics Problem Set #1a Descriptive Statistics,
-Confidence Intervals, 5-point Summary, Frequencies, Graphs
+# HM 878 Applied Biostatistics Problem Set #1a
 
-Goals: This Problem Set will provide students with the opportunity to
+## Descriptive Statistics, Confidence Intervals, 5-point Summary, Frequencies, Graphs
+
+*Goals: This Problem Set will provide students with the opportunity to
 learn how to use R to conduct basic statistical tests, replicating many
 tests that were already done in HM 802. The main goal is to make sure
 you are familiar with R as a system for statistical analysis. You did
@@ -19,7 +20,7 @@ have to conduct hypothesis tests. Include your output from R. If you are
 not getting the same information in R (it may be formatted differently
 or called a different thing and that is ok), you should keep trying. For
 now, I'm only interested in making sure you can use R to do these
-analyses.
+analyses.*
 
 Analyses include:
 
@@ -28,6 +29,10 @@ Analyses include:
 -   Frequency distributions
 
 -   Graphical displays of data
+
+------------------------------------------------------------------------
+
+*Setting up the code environment*
 
 ```{r}
 library(dplyr)
@@ -38,10 +43,14 @@ df = read.csv("C:\\Users\\ljens\\Downloads\\Anticonvulsants.csv")
 head(df)
 ```
 
-1.  Data: Anticonvulsants.csv. Variable: convulsions. Use R to calculate
-    descriptive statistics: mean, median, mode, and standard deviation.
-    Calculate quartiles. Calculate a 5-point summary and the upper and
-    lower fences to determine outliers.
+------------------------------------------------------------------------
+
+## Question 1
+
+Data: Anticonvulsants.csv. Variable: convulsions. Use R to calculate
+descriptive statistics: mean, median, mode, and standard deviation.
+Calculate quartiles. Calculate a 5-point summary and the upper and lower
+fences to determine outliers.
 
 ```{r}
 summary(df$convulsions)
@@ -68,31 +77,45 @@ print(paste("Upper Fence: ", substr(toString(quantile(df$convulsions, 0.75) + 1.
 print(paste("Lower Fence: ", substr(toString(quantile(df$convulsions, 0.25) - 1.5*IQR(df$convulsions)), 1, 5)))
 ```
 
-2.  Data: Anticonvulsants.csv. Variable: center size. Use R to create a
-    frequency table.
+------------------------------------------------------------------------
+
+## Question 2
+
+Data: Anticonvulsants.csv. Variable: center size. Use R to create a
+frequency table.
 
 ```{r}
-df <- df |> mutate(df$center_size_code <- recode(df$center_size, 
-                                              `1`="Small", 
-                                              `2`="Medium", 
-                                              `3`="Large" , 
-                                              .default = NA_character_
-                                              ))
-print(table(df$center_size_code))
+df <- df |> mutate(center_size_coded = recode(center_size, `1`="Small", `2`="Medium", `3`="Large" , .default = NA_character_))
+
+table(df$center_size_code)
 ```
 
-```         
- Large Medium  Small    
- 1476   1320    594 
-```
+------------------------------------------------------------------------
 
-1.  Data: Cumulative Confirmed Cases and Deaths Among Confirmed
-    Cases.csv. Use R to create a dual line graph showing confirmed
-    COVID-19 Deaths and Cases on the same graph.
-2.  Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable:
-    Generations. Using R, Create a Pie Chart and Histogram.
-3.  Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable:
-    AGE. Using R, create a Box and Whisker plot.
-4.  Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variables:
-    libcons and KnowledgeScore. Using R, Create a graph to show the
-    relationship between these two variables.
+## Question 3
+
+Data: Cumulative Confirmed Cases and Deaths Among Confirmed Cases.csv.
+Use R to create a dual line graph showing confirmed COVID-19 Deaths and
+Cases on the same graph.
+
+------------------------------------------------------------------------
+
+## Question 4
+
+Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable:
+Generations. Using R, Create a Pie Chart and Histogram.
+
+------------------------------------------------------------------------
+
+## Question 5
+
+Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable: AGE.
+Using R, create a Box and Whisker plot.
+
+------------------------------------------------------------------------
+
+## Question 6
+
+Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variables:
+libcons and KnowledgeScore. Using R, Create a graph to show the
+relationship between these two variables.
