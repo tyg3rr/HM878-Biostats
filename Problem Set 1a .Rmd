@@ -2,7 +2,6 @@
 editor_options:
   markdown:
     wrap: 72
-output: pdf_document
 ---
 
 HM 878 Applied Biostatistics Problem Set #1a Descriptive Statistics,
