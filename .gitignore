@@ -1,5 +1,10 @@
-# Knit output files
+# Output files
 *.html
+*.docx
+*.pdf
+*.png
+*.tex
+*.log
 
 # History files
 .Rhistory

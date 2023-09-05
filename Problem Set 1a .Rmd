@@ -2,8 +2,10 @@
 editor_options:
   markdown:
     wrap: 72
-  
-output: html_document
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
 ---
 
 # HM 878 Applied Biostatistics Problem Set #1a
@@ -142,42 +144,8 @@ df = read.csv("C:\\Users\\ljens\\Downloads\\COVID-19 Knowledge, Attitudes, and B
 ```
 
 ```{r}
-head(df$Generations)
-
-```
-
-```{r}
-tbl = table(df$Generations)
-
-```
-
-```{r}
-names(tbl)
-
-```
-
-```{r}
-tbl['Baby Boomers']
-```
-
-```{r}
-dd = df[c("Generations_1", 'Generations_2', 'Generations_3', 'Generations_4')]
-```
-
-```{r}
-head(dd)
-```
-
-```{r}
-df |> group_by(Generations) |> summarize(counts = length(Age))
-```
-
-```{r}
 tbl = df |> group_by(Generations) |> summarize(counts = length(Age))
 ```
-
-\
-\
 
 ```{r}
 ggplot(tbl, aes(x='', y=counts, fill=Generations)) +
@@ -187,17 +155,14 @@ ggplot(tbl, aes(x='', y=counts, fill=Generations)) +
 ```
 
 ```{r}
-tbl$Generations = factor(tbl$Generations, order = TRUE, levels = c('Baby Boomers','Gen X','Millenials','Gen Z'))
+df = df |> mutate(Gens = recode(Generations, 'Baby Boomers'=1, 'Gen X'=2, 'Millenials'=3, 'Gen Z'=4, .default = NA_real_))
 ```
 
 ```{r}
-plot(factor(df$Generations, order = TRUE, levels = c('Baby Boomers','Gen X','Millenials','Gen Z')))
+ggplot(df, aes(Gens)) +
+  geom_histogram(color='white', binwidth = 1 ) +
+  scale_x_continuous(breaks= seq(1,4), labels = c('Baby Boomers','Gen X','Millenials','Gen Z'))
 ```
-
-\
-\
-\
-\
 
 ------------------------------------------------------------------------
 
@@ -206,6 +171,17 @@ plot(factor(df$Generations, order = TRUE, levels = c('Baby Boomers','Gen X','Mil
 Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variable: AGE.
 Using R, create a Box and Whisker plot.
 
+```{r}
+summary(df$Age)
+```
+
+```{r}
+ggplot(df, aes(Age)) +
+  geom_boxplot() +
+  coord_flip()
+
+```
+
 ------------------------------------------------------------------------
 
 ## Question 6
@@ -213,3 +189,27 @@ Using R, create a Box and Whisker plot.
 Data: COVID-19 Knowledge, Attitudes, and Behaviors.csv. Variables:
 libcons and KnowledgeScore. Using R, Create a graph to show the
 relationship between these two variables.
+
+```{r}
+df$LibCons = as.character(df$LibCons)
+```
+
+```{r}
+df$KnowledgeScore = as.numeric(df$KnowledgeScore)
+```
+
+```{r}
+tbl = df |> group_by(LibCons) |> summarize(mean=mean(KnowledgeScore), sd=sd(KnowledgeScore))
+```
+
+```{r}
+tbl
+```
+
+```{r}
+ggplot(tbl, aes(x=LibCons, y=mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd, width=.2)) +
+  ylim(0,13) +
+  labs(y="Mean Knowledge Score", x="Liberal-Conservative Scale", )
+```
