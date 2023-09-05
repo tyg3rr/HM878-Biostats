@@ -1,3 +1,6 @@
+# Knit output files
+*.html
+
 # History files
 .Rhistory
 .Rapp.history
