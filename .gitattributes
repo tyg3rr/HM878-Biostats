@@ -1,1 +1,2 @@
 *.R linguist-language=R
+*.ipynb linguist-language=R
