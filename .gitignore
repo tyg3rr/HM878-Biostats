@@ -5,6 +5,7 @@
 *.png
 *.tex
 *.log
+*.xlsx
 
 # History files
 .Rhistory
